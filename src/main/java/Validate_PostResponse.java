@@ -8,13 +8,14 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import static io.restassured.RestAssured.given;
 import static org.testng.Assert.assertEquals;
 
 public class Validate_POSTResponse{
 
 
     @Test
-    public void validateResponse()
+    public void validateResponse ()
     {
         try {
             // Specify the URL of the API endpoint
@@ -36,7 +37,7 @@ public class Validate_POSTResponse{
             // Create the request payload
             String payload = "{"
                     + "\"tourist_name\": \"Test\","
-                    + "\"tourist_email\": \"badhrusamy145@idealtechlabs.com\","
+                    + "\"tourist_email\": \"badhrusamy142350@idealtechlabs.com\","
                     + "\"tourist_location\": \"Paris\""
                     + "}";
 
@@ -55,33 +56,29 @@ public class Validate_POSTResponse{
                 System.out.println("POST request successful");
                 Reporter.log("POST request successful");
 
+
             } else {
                 // Print an error message if the response code is not 201
                 System.out.println("Failed to make POST request. Response Code: " + responseCode);
             }
 
-            Response response = RestAssured.given()
-                    .contentType(ContentType.JSON)
-                    .body(payload)
-                    .post("/Tourist")
-                    .then()
-                    .statusCode(201) // Adjust the expected status code based on your API's behavior
-                    .extract()
-                    .response();
-
+//            Response response = RestAssured.given()
+//                    .contentType(ContentType.JSON)
+//                    .body(payload)
+//                   .post("apiUrl")
+//                   .then()
+//                   .statusCode(201) // Adjust the expected status code based on your API's behavior
+//                   .extract()
+//                   .response();
+            Response response = given().post("/Tourist");
             int statusCode = response.getStatusCode();
             String responseBody = response.getBody().asString();
             System.out.println("Response Body: " + responseBody);
             assertEquals(statusCode, 201, "Status code is not as expected");
 
-            // Validate a specific element in the response body (customize as needed)
-
 
             Reporter.log(responseBody);
             assertEquals(responseBody.contains("tourist_name"), true, "Response body doesn't contain expected value");
-
-            System.out.println("Response Body: " + responseBody);
-
 
 
             // Close the connection
@@ -93,7 +90,7 @@ public class Validate_POSTResponse{
 
             }
             else {
-                Reporter.log("Message\": \"Pleae try with different email address!\"");
+                Reporter.log("Message\": \"Please try with different email address!\"");
 
             }
             // Validate status code
@@ -103,5 +100,5 @@ public class Validate_POSTResponse{
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-}
+                }
+                }
