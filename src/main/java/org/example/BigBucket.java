@@ -38,7 +38,7 @@ public class BigBucket {
 
         driver = new AndroidDriver(new URL("http://127.0.0.1:4723"), options);
 
-        Thread.sleep(3000);
+        Thread.sleep(5000);
 
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         // Login button

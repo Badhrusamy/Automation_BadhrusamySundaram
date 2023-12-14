@@ -2,13 +2,20 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.Reporter;
+import org.testng.annotations.Test;
 
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class Validate_PostResponse{
-    public static void main(String[] args) {
+import static org.testng.Assert.assertEquals;
+
+public class Validate_POSTResponse{
+
+
+    @Test
+    public void validateResponse()
+    {
         try {
             // Specify the URL of the API endpoint
             String apiUrl = "http://restapi.adequateshop.com/api/Tourist";
@@ -28,8 +35,8 @@ public class Validate_PostResponse{
 
             // Create the request payload
             String payload = "{"
-                    + "\"tourist_name\": \"Maki\","
-                    + "\"tourist_email\": \"samybadhru1990@gmail.com.com\","
+                    + "\"tourist_name\": \"Test\","
+                    + "\"tourist_email\": \"badhrusamy145@idealtechlabs.com\","
                     + "\"tourist_location\": \"Paris\""
                     + "}";
 
@@ -43,13 +50,13 @@ public class Validate_PostResponse{
             // Get the response code
             int responseCode = connection.getResponseCode();
 
-            // Check if the response code is 200 (OK)
-            if (responseCode == HttpURLConnection.HTTP_OK) {
+            // Check if the response code is 201 (OK)
+            if (responseCode == 201) {
                 System.out.println("POST request successful");
                 Reporter.log("POST request successful");
 
             } else {
-                // Print an error message if the response code is not 200
+                // Print an error message if the response code is not 201
                 System.out.println("Failed to make POST request. Response Code: " + responseCode);
             }
 
@@ -58,14 +65,41 @@ public class Validate_PostResponse{
                     .body(payload)
                     .post("/Tourist")
                     .then()
-                    .statusCode(200) // Adjust the expected status code based on your API's behavior
+                    .statusCode(201) // Adjust the expected status code based on your API's behavior
                     .extract()
                     .response();
 
+            int statusCode = response.getStatusCode();
             String responseBody = response.getBody().asString();
             System.out.println("Response Body: " + responseBody);
+            assertEquals(statusCode, 201, "Status code is not as expected");
+
+            // Validate a specific element in the response body (customize as needed)
+
+
+            Reporter.log(responseBody);
+            assertEquals(responseBody.contains("tourist_name"), true, "Response body doesn't contain expected value");
+
+            System.out.println("Response Body: " + responseBody);
+
+
+
             // Close the connection
             connection.disconnect();
+
+            if(responseBody.contains("tourist_name"))
+            {
+                Reporter.log("Information Updated successfully");
+
+            }
+            else {
+                Reporter.log("Message\": \"Pleae try with different email address!\"");
+
+            }
+            // Validate status code
+
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -4,14 +4,14 @@
            failures="0"
            errors="0"
            skipped="0"
-           time="2.948">
+           time="1.613">
     <properties></properties>
 
 
 
             <testcase
                 name="validateResponse"
-                time="2.948"
-                classname="Validate_GETResponse">
+                time="1.613"
+                classname="Validate_POSTResponse">
             </testcase>
 </testsuite>
