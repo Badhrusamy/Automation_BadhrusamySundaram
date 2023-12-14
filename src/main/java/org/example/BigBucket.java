@@ -9,6 +9,8 @@ import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.*;
+import org.testng.Reporter;
+import org.testng.annotations.Test;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -18,9 +20,10 @@ import java.util.concurrent.TimeUnit;
 
 
 public class BigBucket {
-    public static <string> void main(String[] args) throws InterruptedException, MalformedURLException {
+    //public static <string> void main(String[] args) throws InterruptedException, MalformedURLException {
 
-
+    @Test
+    public void validateResponse() throws InterruptedException, MalformedURLException {
         WebDriver driver;
 
 
@@ -37,55 +40,54 @@ public class BigBucket {
 
 
         driver = new AndroidDriver(new URL("http://127.0.0.1:4723"), options);
-
-        Thread.sleep(5000);
+        Reporter.log("Driver Initiated");
+        //Thread.sleep(5000);
 
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         // Login button
         driver.findElement(AppiumBy.xpath("//android.widget.Button[@resource-id='com.bigbasket.mobileapp:id/btn_login_signup']")).click();
 
-        Thread.sleep(3000);
 
         //continue
         driver.findElement(AppiumBy.xpath("//android.widget.TextView[@resource-id='com.truecaller:id/confirm']")).click();
+        Reporter.log("");
 
-        Thread.sleep(3000);
+        Reporter.log("Login Successfully");
 
-
-        Thread.sleep(3000);
         driver.findElement(By.xpath("(//android.widget.ImageView[@content-desc='Bigbasket'])[1]")).click();
-        Thread.sleep(3000);
+
+        Reporter.log("Big basket selected");
         driver.findElement(By.xpath("//android.widget.Button[@resource-id='com.bigbasket.mobileapp:id/button_done']")).click();
 
-
+        Reporter.log("Navigated to Homepage successfully");
         //Click categories
 
-        Thread.sleep(3000);
-        driver.findElement(By.xpath("//android.widget.TextView[@resource-id='com.bigbasket.mobileapp:id/bbBottomNavItemText' and @text='Categories']")).click();
 
-        Thread.sleep(3000);
+        driver.findElement(By.xpath("//android.widget.TextView[@resource-id='com.bigbasket.mobileapp:id/bbBottomNavItemText' and @text='Categories']")).click();
+        Reporter.log("Navigated to categories successfully");
+
         driver.findElement(By.xpath("(//android.widget.RelativeLayout[@resource-id='com.bigbasket.mobileapp:id/parent_layout'])[11]")).click();
+        Reporter.log("Selected Fruits & Vegetables");
         driver.findElement(By.xpath("//android.widget.TextView[@resource-id='com.bigbasket.mobileapp:id/title' and @text='All Fruits & Vegetables']")).click();
 
-
+        Reporter.log("Clicked All Fruits & Vegetables");
         //Click FreshVegetables
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
         driver.findElement(By.xpath("//android.view.View[@content-desc='Fresh Vegetables']")).click();
 
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-
+        Reporter.log("Clicked FreshVegetables");
 
         //Add Groceries
         if (driver.findElement(By.xpath("(//android.widget.TextView[@resource-id=\"com.bigbasket.mobileapp:id/btnAddToBasket\"])[1]")).isDisplayed()) {
             driver.findElement(By.xpath("(//android.widget.TextView[@resource-id=\"com.bigbasket.mobileapp:id/btnAddToBasket\"])[1]")).click();
         }
 //
-        if (driver.findElement(By.xpath("(//android.widget.ImageView[@content-desc=\"Add\"])[1]")).isDisplayed())
-       {
-           driver.findElement(By.xpath("(//android.widget.ImageView[@content-desc=\"Add\"])[1]")).click();
+        if (driver.findElement(By.xpath("(//android.widget.ImageView[@content-desc=\"Add\"])[1]")).isDisplayed()) {
+            driver.findElement(By.xpath("(//android.widget.ImageView[@content-desc=\"Add\"])[1]")).click();
 
-       }
+        }
 
 //
 //        if (driver.findElement(By.xpath("(//android.widget.TextView[@resource-id=\"com.bigbasket.mobileapp:id/btnAddToBasket\"])[2]")).isDisplayed())
@@ -118,7 +120,7 @@ public class BigBucket {
                 .press(PointOption.point(startX, bannerPoint.getY()))
                 .waitAction(WaitOptions.waitOptions(Duration.ofMillis(2000)))
                 .moveTo(PointOption.point(endX, bannerPoint.getY()));
-                //.release();
+        //.release();
         driver.switchTo();
 
         driver.manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
@@ -130,6 +132,7 @@ public class BigBucket {
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         //Proceed
         driver.findElement(By.xpath("//android.widget.Button[@resource-id='com.bigbasket.mobileapp:id/checkoutButton']")).click();
+        Reporter.log("");
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         //Choose timeslot
         driver.findElement(By.xpath("//android.widget.RelativeLayout[@resource-id='com.bigbasket.mobileapp:id/slotViewRelativeLayout']/android.widget.LinearLayout")).click();
@@ -141,7 +144,7 @@ public class BigBucket {
         //Proceedtopay
         driver.findElement(By.xpath("//android.widget.Button[@resource-id='com.bigbasket.mobileapp:id/proceedToPayButton']")).click();
 
-       //Payment
+        //Payment
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         driver.findElement(By.xpath("(//android.widget.LinearLayout[@content-desc='btn_pay'])[1]/android.widget.ImageView")).click();
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -155,7 +158,7 @@ public class BigBucket {
 
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         driver.findElement(By.xpath("//android.widget.TextView[@text='Continue']")).click();
-
+        Reporter.log("Navigated to Payment Gateway Successfully");
 
     }
 

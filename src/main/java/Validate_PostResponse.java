@@ -4,6 +4,8 @@ import io.restassured.response.Response;
 import org.testng.Reporter;
 import org.testng.annotations.Test;
 
+import static org.testng.Assert.assertEquals;
+
 public class Validate_POSTResponse {
     @Test
     public void validateResponse() {
@@ -13,7 +15,7 @@ public class Validate_POSTResponse {
         // Define the payload
         String payload = "{\n" +
                 "\"tourist_name\": \"Badhrusamy\",\n" +
-                "\"tourist_email\": \"Badhrusamysundaram@idealtechlabs.com\",\n" +
+                "\"tourist_email\": \"Badhrusamysundaram125@idealtechlabs.com\",\n" +
                 "\"tourist_location\": \"Paris\"\n" +
                 "}";
 
@@ -26,6 +28,11 @@ public class Validate_POSTResponse {
                 .statusCode(201) // Adjust the expected status code based on your API's behavior
                 .extract()
                 .response();
+
+        // Validate status code
+        int statusCode = response.getStatusCode();
+        assertEquals(statusCode, 201, "Status code is not as expected");
+
 
         // Retrieve and print the success response body
         String successResponseBody = response.getBody().asString();
