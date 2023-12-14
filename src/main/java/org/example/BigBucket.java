@@ -40,7 +40,7 @@ public class BigBucket {
 
 
         driver = new AndroidDriver(new URL("http://127.0.0.1:4723"), options);
-        Reporter.log("Driver Initiated");
+        Reporter.log("Driver Initiated Successfully");
         //Thread.sleep(5000);
 
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -52,7 +52,7 @@ public class BigBucket {
         driver.findElement(AppiumBy.xpath("//android.widget.TextView[@resource-id='com.truecaller:id/confirm']")).click();
         Reporter.log("");
 
-        Reporter.log("Login Successfully");
+        Reporter.log("Login Successfull");
 
         driver.findElement(By.xpath("(//android.widget.ImageView[@content-desc='Bigbasket'])[1]")).click();
 
@@ -128,11 +128,11 @@ public class BigBucket {
 
         //Delete in swipe
         driver.findElement(By.xpath("//android.widget.TextView[@resource-id='com.bigbasket.mobileapp:id/deleteView']")).click();
-
+        Reporter.log("Deleted the item Successfully");
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         //Proceed
         driver.findElement(By.xpath("//android.widget.Button[@resource-id='com.bigbasket.mobileapp:id/checkoutButton']")).click();
-        Reporter.log("");
+        Reporter.log("Navigated for proceed for payment");
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         //Choose timeslot
         driver.findElement(By.xpath("//android.widget.RelativeLayout[@resource-id='com.bigbasket.mobileapp:id/slotViewRelativeLayout']/android.widget.LinearLayout")).click();
@@ -143,7 +143,7 @@ public class BigBucket {
 
         //Proceedtopay
         driver.findElement(By.xpath("//android.widget.Button[@resource-id='com.bigbasket.mobileapp:id/proceedToPayButton']")).click();
-
+        Reporter.log("Proceed for payment Successfully");
         //Payment
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         driver.findElement(By.xpath("(//android.widget.LinearLayout[@content-desc='btn_pay'])[1]/android.widget.ImageView")).click();

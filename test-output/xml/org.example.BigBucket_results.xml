@@ -4,14 +4,14 @@
            failures="0"
            errors="0"
            skipped="0"
-           time="140.856">
+           time="124.577">
     <properties></properties>
 
 
 
             <testcase
                 name="validateResponse"
-                time="140.856"
+                time="124.577"
                 classname="org.example.BigBucket">
             </testcase>
 </testsuite>
