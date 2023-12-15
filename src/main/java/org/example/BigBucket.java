@@ -13,6 +13,8 @@ import org.testng.Reporter;
 import org.testng.annotations.Test;
 
 import java.io.File;
+
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
@@ -43,18 +45,57 @@ public class BigBucket {
         Reporter.log("Driver Initiated Successfully");
         //Thread.sleep(5000);
 
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        // Login button
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        //Login with OTP
         driver.findElement(AppiumBy.xpath("//android.widget.Button[@resource-id='com.bigbasket.mobileapp:id/btn_login_signup']")).click();
+        driver.findElement(AppiumBy.xpath("//android.widget.TextView[@resource-id='com.truecaller:id/continueWithDifferentNumber']")).click();
+        driver.findElement(AppiumBy.xpath("//android.widget.TextView[@resource-id='com.google.android.gms:id/credential_primary_label' and @text='086681 34785']")).click();
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        Reporter.log("Login successfull");
+
+        //Change delivery address
+
+        //Current location
+
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        if (driver.findElement(AppiumBy.xpath("//android.widget.TextView[@text='Use my current location']")).isDisplayed()) {
+
+            driver.findElement(AppiumBy.xpath("//android.widget.TextView[@text='Use my current location']")).click();
+        }
+//
+//        else
+//        {
+//
+//            driver.findElement(AppiumBy.xpath("//android.widget.TextView[@resource-id='com.bigbasket.mobileapp:id/selected_address']")).click();
+//            driver.findElement(AppiumBy.xpath("//android.widget.RadioButton[@resource-id='com.bigbasket.mobileapp:id/radioButton']")).click();
+//        }
+//
+//        if (driver.findElement(AppiumBy.xpath("//android.widget.TextView[@resource-id='com.bigbasket.mobileapp:id/selected_address']")).isDisplayed()) {
+//
+//            driver.findElement(AppiumBy.xpath("//android.widget.TextView[@resource-id='com.bigbasket.mobileapp:id/selected_address']")).click();
+//        }
+//
+//
+//        driver.findElement(AppiumBy.xpath("//android.widget.TextView[@resource-id='com.bigbasket.mobileapp:id/btnChooseLocation']")).click();
 
 
-        //continue
-        driver.findElement(AppiumBy.xpath("//android.widget.TextView[@resource-id='com.truecaller:id/confirm']")).click();
-        Reporter.log("");
+        driver.findElement(AppiumBy.xpath("//android.widget.Button[@resource-id='com.android.permissioncontroller:id/permission_allow_foreground_only_button']")).click();
 
-        Reporter.log("Login Successfull");
+        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 
-        driver.findElement(By.xpath("(//android.widget.ImageView[@content-desc='Bigbasket'])[1]")).click();
+
+        if (driver.findElement(By.xpath("//android.widget.Button[@resource-id='com.bigbasket.mobileapp:id/btnUseThisLocation']")).isDisplayed()) {
+
+            driver.findElement(By.xpath("//android.widget.Button[@resource-id='com.bigbasket.mobileapp:id/btnUseThisLocation']")).click();
+        }
+
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+
+        Reporter.log("Delivery address set Successfully");
+
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+
+        driver.findElement(By.xpath("//android.widget.TextView[@resource-id='com.bigbasket.mobileapp:id/txtDoorDescription' and @text='1 lakh+ products at lowest prices']")).click();
 
         Reporter.log("Big basket selected");
         driver.findElement(By.xpath("//android.widget.Button[@resource-id='com.bigbasket.mobileapp:id/button_done']")).click();
@@ -79,9 +120,9 @@ public class BigBucket {
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         Reporter.log("Clicked FreshVegetables");
 
-        //Add Groceries
-        if (driver.findElement(By.xpath("(//android.widget.TextView[@resource-id=\"com.bigbasket.mobileapp:id/btnAddToBasket\"])[1]")).isDisplayed()) {
-            driver.findElement(By.xpath("(//android.widget.TextView[@resource-id=\"com.bigbasket.mobileapp:id/btnAddToBasket\"])[1]")).click();
+        //Add fruits & vegetables
+        if (driver.findElement(By.xpath("(//android.widget.TextView[@resource-id=\"com.bigbasket.mobileapp:id/btnAddToBasket\"][1])")).isDisplayed()) {
+            driver.findElement(By.xpath("(//android.widget.TextView[@resource-id=\"com.bigbasket.mobileapp:id/btnAddToBasket\"][1])")).click();
         }
 
         if (driver.findElement(By.xpath("(//android.widget.ImageView[@content-desc=\"Add\"])[1]")).isDisplayed()) {
@@ -89,24 +130,41 @@ public class BigBucket {
 
         }
 
-//
-//        if (driver.findElement(By.xpath("(//android.widget.TextView[@resource-id=\"com.bigbasket.mobileapp:id/btnAddToBasket\"])[2]")).isDisplayed())
-//        {
-//            driver.findElement(By.xpath("(//android.widget.TextView[@resource-id=\"com.bigbasket.mobileapp:id/btnAddToBasket\"])[2]")).click();
-//
+
+        //Click categories
+
+        driver.findElement(By.xpath("//android.widget.TextView[@resource-id='com.bigbasket.mobileapp:id/bbBottomNavItemText' and @text='Categories']")).click();
+        Reporter.log("Navigated to categories successfully");
+        // Add  Groceries
+        driver.findElement(By.xpath("//android.widget.TextView[@resource-id='com.bigbasket.mobileapp:id/title' and @text='Foodgrains, Oil & Masala']")).click();
+        //Select Wheat
+        driver.findElement(By.xpath("//android.widget.TextView[@resource-id='com.bigbasket.mobileapp:id/title' and @text='Atta, Flours & Sooji']")).click();
+        //Click Wheat atta
+        driver.findElement(By.xpath("(//android.widget.ImageView[@content-desc='Product Image'])[6]")).click();
+
+
+        if (driver.findElement(By.xpath("(//android.widget.TextView[@resource-id='com.bigbasket.mobileapp:id/btnAddToBasket'])[1]")).isDisplayed()) {
+
+            driver.findElement(By.xpath("(//android.widget.TextView[@resource-id='com.bigbasket.mobileapp:id/btnAddToBasket'])[1]")).click();
+
+        }
+        if (driver.findElement(By.xpath("(//android.widget.ImageView[@content-desc='Add'])[1]")).isDisplayed()) {
+            driver.findElement(By.xpath("(//android.widget.ImageView[@content-desc='Add'])[1]")).click();
+
+        }
+
+//        if (driver.findElement(By.xpath("(//android.widget.TextView[@resource-id=com.bigbasket.mobileapp:id/btnAddToBasket][1])")).isDisplayed()) {
+//            driver.findElement(By.xpath("(//android.widget.TextView[@resource-id=com.bigbasket.mobileapp:id/btnAddToBasket][1])")).click();
 //        }
 
 
-//        if(driver.findElement(By.xpath("(//android.widget.ImageView[@content-desc=\"Add\"])[2]")).isDisplayed())
-//        {
-//         driver.findElement(By.xpath("(//android.widget.ImageView[@content-desc=\"Add\"])[2]")).click();
-//
-//     }
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
 
         //Click Basket
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         driver.findElement(By.xpath("//android.widget.TextView[@resource-id='com.bigbasket.mobileapp:id/bbBottomNavItemText' and @text='Basket']")).click();
+
 
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         WebElement banner = driver.findElement(By.xpath("(//android.widget.RelativeLayout[@resource-id='com.bigbasket.mobileapp:id/viewProductDetails'])[1]"));
@@ -130,6 +188,49 @@ public class BigBucket {
         driver.findElement(By.xpath("//android.widget.TextView[@resource-id='com.bigbasket.mobileapp:id/deleteView']")).click();
         Reporter.log("Deleted the item Successfully");
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+
+        //Verfiy the items in the cart
+
+        //Fresh onion
+
+        WebElement cartItem1 = driver.findElement(By.xpath("(//android.widget.LinearLayout[@resource-id='com.bigbasket.mobileapp:id/view_foreground'])[1]"));
+        String cartItemText = cartItem1.getText();
+        if (cartItemText.contains("Fresh-onion")) {
+
+            Reporter.log("Fresh-onion added to cart as per my requirements");
+        }
+        assert cartItemText.contains("Fresh-onion");
+
+
+        WebElement cartItem2 = driver.findElement(By.xpath("((//android.widget.LinearLayout[@resource-id='com.bigbasket.mobileapp:id/view_foreground'])[2]"));
+        String cartItemText2 = cartItem2.getText();
+        if (cartItemText.contains("Chicken")) {
+
+            Reporter.log("Chicken added to cart as per my requirements");
+        }
+        // Perform verification, for example using assertions
+        assert cartItemText2.contains("Chicken");
+
+        WebElement cartItem3 = driver.findElement(By.xpath("(//android.widget.LinearLayout[@resource-id='com.bigbasket.mobileapp:id/view_foreground'])[3]"));
+        String cartItemText3 = cartItem3.getText();
+        if (cartItemText.contains("Prawns")) {
+
+            Reporter.log("Prawns added to cart as per my requirements");
+        }
+        // Perform verification, for example using assertions
+        assert cartItemText3.contains("Prawns");
+
+
+        //select address
+        driver.findElement(By.xpath("//android.widget.Button[@resource-id=\"com.bigbasket.mobileapp:id/checkoutButton\"]")).click();
+
+        //Default address
+        driver.findElement(By.xpath("//android.widget.RadioButton[@resource-id=\"com.bigbasket.mobileapp:id/radioButton\"]")).click();
+        //Click confirm
+        driver.findElement(By.xpath("//android.widget.TextView[@resource-id=\"com.bigbasket.mobileapp:id/btn_confirm\"]")).click();
+        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+
+
         //Proceed
         driver.findElement(By.xpath("//android.widget.Button[@resource-id='com.bigbasket.mobileapp:id/checkoutButton']")).click();
         Reporter.log("Navigated for proceed for payment");

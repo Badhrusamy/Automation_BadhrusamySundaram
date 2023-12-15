@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Automation"
+<testsuite name="vcs.xml"
            tests="1"
            failures="0"
            errors="0"
            skipped="0"
-           time="5.762">
+           time="6.095">
     <properties></properties>
 
 
 
             <testcase
                 name="validateResponse"
-                time="5.762"
+                time="6.095"
                 classname="Validate_GETResponse">
             </testcase>
 </testsuite>
